@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Capital Allocation Worksheet</title>
+  <style>
+    :root{
+      --bg:#0f1220;
+      --card:#161a2b;
+      --muted:#8a93b2;
+      --text:#e9ecff;
+      --accent:#6aa0ff;
+      --accent2:#8cffc2;
+      --accent3:#ffbf6a;
+      --danger:#ff7a7a;
+      --ok:#7affac;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:linear-gradient(180deg,#0d1020,#0b0e1a);
+      color:var(--text);
+      font: 16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    .wrap{max-width:1100px;margin:32px auto;padding:0 16px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:12px}
+    .title{font-weight:800; letter-spacing:.2px; font-size:clamp(20px,2.6vw,28px)}
+    .subtitle{color:var(--muted); font-size:14px}
+    .cards{display:grid; grid-template-columns:1fr; gap:18px}
+    @media(min-width:1000px){ .cards{ grid-template-columns: 1.2fr 1fr; } }
+    .card{
+      background: radial-gradient(1200px 500px at 10% -10%, rgba(106,160,255,.09), transparent 60%) , var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .card h2{margin:0 0 10px 0;font-size:18px}
+    .row{display:grid;grid-template-columns:1fr 140px;gap:12px;align-items:center;margin:10px 0}
+    .row label{color:#c6cbdf; font-size:14px}
+    .row input[type="number"]{
+      width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--border);
+      background:#0e1222; color:var(--text);
+    }
+    .slider-row{display:grid; grid-template-columns: 1fr 110px; gap:10px; align-items:center; margin:12px 0}
+    .slider-row input[type="range"]{ width:100% }
+    .value-chip{
+      text-align:right; background:#0e1222; border:1px solid var(--border);
+      padding:8px 10px; border-radius:10px; font-variant-numeric:tabular-nums;
+      color:#cfe1ff;
+    }
+    .chipbar{display:flex; gap:8px; flex-wrap:wrap; margin:6px 0 2px 0}
+    .chip{
+      border:1px solid var(--border); background:#10162a; color:#cfe1ff; padding:6px 10px; border-radius:999px;
+      font-size:12px; cursor:pointer; user-select:none;
+    }
+    .chip:hover{ outline:1px solid rgba(255,255,255,.06) }
+    .help{color:var(--muted); font-size:12px}
+    .warn{color:var(--danger)}
+    .ok{color:var(--ok)}
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .totals{margin-top:12px; padding:12px; border-radius:12px; background:#0f1426; border:1px solid var(--border);}
+    .totals .line{display:flex; align-items:center; justify-content:space-between; margin:6px 0; font-variant-numeric:tabular-nums}
+    .pill{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; font-size:12px; border:1px solid var(--border); background:#0f152a; color:#bcd0ff}
+    canvas{ width:100%; height:auto; max-width:500px; display:block; margin:6px auto 0 }
+    .footer{color:var(--muted); font-size:12px; margin-top:20px}
+    button.preset{
+      background:#0f152a; color:#cfe1ff; border:1px solid var(--border); border-radius:10px;
+      padding:8px 12px; cursor:pointer;
+    }
+    button.preset:hover{ outline:1px solid rgba(255,255,255,.08) }
+    .kbd{background:#0f152a; border:1px solid var(--border); padding:0 6px; border-radius:6px}
+    .split{
+      display:grid; grid-template-columns: 1fr 1fr; gap:12px;
+    }
+    @media(max-width:700px){ .split{ grid-template-columns:1fr; } }
+    .legend{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:8px}
+    .legend .lg{display:flex; align-items:center; gap:6px; font-size:12px; color:#cfe1ff}
+    .legend .dot{width:10px; height:10px; border-radius:50%}
+    .hr{height:1px;background:var(--border); margin:12px 0}
+    .small{font-size:12px;color:#aeb8da}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="title">Capital Allocation Worksheet</div>
+        <div class="subtitle">Explore rollover vs. new-savings allocations, IRA limits, and a clean split for SDIRA vs. conventional.</div>
+      </div>
+      <div class="pill">🕒 Horizon: 15–20 years | 🧠 Hands‑off core + Flexible sidecar</div>
+    </header>
+
+    <div class="cards">
+      <!-- LEFT: Inputs and Rollover -->
+      <section class="card">
+        <h2>Inputs</h2>
+        <div class="grid-2">
+          <div class="row">
+            <label>Rollover amount (401k → IRAs)</label>
+            <input id="inputRollover" type="number" min="0" step="100" value="230000">
+          </div>
+          <div class="row">
+            <label>Annual bonus estimate</label>
+            <input id="inputBonus" type="number" min="0" step="1000" value="90000">
+          </div>
+          <div class="row">
+            <label>Monthly surplus to invest</label>
+            <input id="inputMonthly" type="number" min="0" step="100" value="1000">
+          </div>
+          <div class="row">
+            <label>IRA contribution limit (annual)</label>
+            <input id="inputIraLimit" type="number" min="0" step="500" value="7000">
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <h2>Rollover Allocation (must sum to 100%)</h2>
+        <div class="chipbar">
+          <button class="preset" data-rollover="70,30">Conservative 70/30</button>
+          <button class="preset" data-rollover="60,40">Balanced 60/40</button>
+          <button class="preset" data-rollover="50,50">Opportunistic 50/50</button>
+        </div>
+
+        <div class="slider-row">
+          <label>Conventional IRA %</label>
+          <input id="rollConv" type="range" min="0" max="100" step="1" value="70">
+          <div class="value-chip"><span id="rollConvVal">70</span>%</div>
+        </div>
+        <div class="slider-row">
+          <label>Self-Directed IRA (SDIRA) %</label>
+          <input id="rollSdi" type="range" min="0" max="100" step="1" value="30">
+          <div class="value-chip"><span id="rollSdiVal">30</span>%</div>
+        </div>
+        <div class="help">Tip: Keep SDIRA sized to your realistic deal cadence. Inside-IRA lending has compliance rules; outside-IRA lending is more flexible.</div>
+
+        <div class="totals" id="rolloverTotals"></div>
+      </section>
+
+      <!-- RIGHT: Chart -->
+      <section class="card">
+        <h2>Overall Picture</h2>
+        <canvas id="chart" width="600" height="600"></canvas>
+        <div class="legend" id="legend"></div>
+        <div class="help small">Donut segments reflect *net annual plan* combining rollover and a year of new savings.</div>
+      </section>
+    </div>
+
+    <div class="cards">
+      <!-- LEFT: New Savings -->
+      <section class="card">
+        <h2>New Savings Allocation (next 12 months)</h2>
+        <div class="chipbar">
+          <button class="preset" data-new="secure">Preset: Secure</button>
+          <button class="preset" data-new="balanced">Preset: Balanced</button>
+          <button class="preset" data-new="agile">Preset: Agile</button>
+        </div>
+
+        <div class="slider-row">
+          <label>IRA contribution split → Conventional vs SDIRA</label>
+          <input id="iraSplit" type="range" min="0" max="100" step="1" value="80">
+          <div class="value-chip"><span id="iraSplitVal">80</span>% Conv / <span id="iraSplitVal2">20</span>% SDIRA</div>
+        </div>
+
+        <div class="slider-row">
+          <label>Overflow split → Taxable Flex vs Liquidity</label>
+          <input id="overflowSplit" type="range" min="0" max="100" step="1" value="60">
+          <div class="value-chip"><span id="overflowSplitVal">60</span>% Flex / <span id="overflowSplitVal2">40</span>% Liquidity</div>
+        </div>
+
+        <div class="help">Annual IRA contributions are capped (you set the limit above). Excess new savings flows to Taxable Flex and Liquidity per the overflow split.</div>
+
+        <div class="totals" id="newTotals"></div>
+      </section>
+
+      <!-- RIGHT: Compliance & Notes -->
+      <section class="card">
+        <h2>Notes & Guardrails</h2>
+        <ul class="small">
+          <li><strong>Multiple IRAs are fine.</strong> The annual contribution cap applies across all IRAs combined.</li>
+          <li><strong>SDIRA lending:</strong> Avoid prohibited transactions (no lending to yourself, your companies, spouse, lineal ascendants/descendants). Document terms, secure collateral, and route flows through the custodian/LLC correctly.</li>
+          <li><strong>Taxable Flex fund:</strong> Best for lending to your own ventures or where speed/control matters.</li>
+          <li><strong>Liquidity buffer:</strong> High-yield savings or short-duration Treasuries/ETFs for calm sleep and dry powder.</li>
+          <li><strong>Hands-off core:</strong> Use a target-date or 3‑fund portfolio (total US, total international, bonds) at a reputable custodian.</li>
+        </ul>
+        <div class="hr"></div>
+        <div class="small">Pro tip: Revisit these splits annually or after major income/goal changes. Use this as a living worksheet, not a one-time decision.</div>
+      </section>
+    </div>
+
+    <div class="footer">
+      Built for you—single-file, client‑side only. Save this page to reuse. Keyboard: adjust focused slider with <span class="kbd">←</span> <span class="kbd">→</span>.
+    </div>
+  </div>
+
+  <script>
+    // Utils
+    const fmt = (n) => n.toLocaleString(undefined, {style:'currency', currency:'USD', maximumFractionDigits:0});
+    const clamp = (v,min,max)=>Math.max(min,Math.min(max,v));
+
+    // Elements
+    const el = (id)=>document.getElementById(id);
+    const inputRollover = el('inputRollover');
+    const inputBonus    = el('inputBonus');
+    const inputMonthly  = el('inputMonthly');
+    const inputIraLimit = el('inputIraLimit');
+
+    const rollConv = el('rollConv');
+    const rollSdi  = el('rollSdi');
+    const rollConvVal = el('rollConvVal');
+    const rollSdiVal  = el('rollSdiVal');
+
+    const iraSplit = el('iraSplit');
+    const overflowSplit = el('overflowSplit');
+    const iraSplitVal = el('iraSplitVal');
+    const iraSplitVal2 = el('iraSplitVal2');
+    const overflowSplitVal = el('overflowSplitVal');
+    const overflowSplitVal2 = el('overflowSplitVal2');
+
+    const rolloverTotals = el('rolloverTotals');
+    const newTotals = el('newTotals');
+
+    // Presets
+    document.querySelectorAll('button.preset').forEach(btn=>{
+      btn.addEventListener('click', () => {
+        const r = btn.dataset.rollover;
+        if(r){
+          const [a,b] = r.split(',').map(x=>+x);
+          rollConv.value = a; rollSdi.value = b; syncRollover();
+        }
+        const n = btn.dataset.new;
+        if(n){
+          if(n==='secure'){ iraSplit.value=90; overflowSplit.value=40; }
+          if(n==='balanced'){ iraSplit.value=80; overflowSplit.value=60; }
+          if(n==='agile'){ iraSplit.value=60; overflowSplit.value=80; }
+          syncNew();
+        }
+        draw();
+      });
+    });
+
+    // Rollover sliders must sum to 100
+    function syncRollover(changed){
+      let a = +rollConv.value;
+      let b = +rollSdi.value;
+      if(changed==='conv'){
+        b = 100 - a; rollSdi.value = b;
+      }else if(changed==='sdi'){
+        a = 100 - b; rollConv.value = a;
+      }else{
+        // normalize
+        const total=a+b; if(total!==100){ b = clamp(100-a,0,100); rollSdi.value=b; }
+      }
+      rollConvVal.textContent = rollConv.value;
+      rollSdiVal.textContent = rollSdi.value;
+      update();
+    }
+    rollConv.addEventListener('input', ()=>syncRollover('conv'));
+    rollSdi.addEventListener('input', ()=>syncRollover('sdi'));
+
+    function syncNew(){
+      iraSplitVal.textContent = iraSplit.value;
+      iraSplitVal2.textContent = 100 - (+iraSplit.value);
+      overflowSplitVal.textContent = overflowSplit.value;
+      overflowSplitVal2.textContent = 100 - (+overflowSplit.value);
+      update();
+    }
+    iraSplit.addEventListener('input', syncNew);
+    overflowSplit.addEventListener('input', syncNew);
+
+    [inputRollover,inputBonus,inputMonthly,inputIraLimit].forEach(i=> i.addEventListener('input', update));
+
+    function calc(){
+      const rollover = +inputRollover.value||0;
+      const annualNew = (+inputBonus.value||0) + 12*(+inputMonthly.value||0);
+      const iraLimit = +inputIraLimit.value||0;
+
+      // Rollover allocations
+      const rollConvAmt = rollover * (+rollConv.value/100);
+      const rollSdiAmt  = rollover * (+rollSdi.value/100);
+
+      // New savings: first, IRA up to limit
+      const iraAmt = Math.min(annualNew, iraLimit);
+      const iraConvAmt = iraAmt * (+iraSplit.value/100);
+      const iraSdiAmt  = iraAmt - iraConvAmt;
+
+      // Overflow to Taxable Flex vs Liquidity
+      const overflow = Math.max(0, annualNew - iraAmt);
+      const flexAmt  = overflow * (+overflowSplit.value/100);
+      const liqAmt   = overflow - flexAmt;
+
+      return {
+        rollover, annualNew, iraLimit,
+        rollConvAmt, rollSdiAmt,
+        iraAmt, iraConvAmt, iraSdiAmt,
+        overflow, flexAmt, liqAmt
+      };
+    }
+
+    function update(){
+      const c = calc();
+
+      // Rollover Totals card
+      rolloverTotals.innerHTML = `
+        <div class="line"><span>Conventional IRA (rollover)</span><strong>${fmt(c.rollConvAmt)}</strong></div>
+        <div class="line"><span>SDIRA (rollover)</span><strong>${fmt(c.rollSdiAmt)}</strong></div>
+        <div class="line"><span class="help">Rollover must split 100% between these two.</span><span></span></div>
+      `;
+
+      // New Savings card
+      newTotals.innerHTML = `
+        <div class="line"><span>New savings (12 mo)</span><strong>${fmt(c.annualNew)}</strong></div>
+        <div class="line"><span>IRA contributions (capped)</span><strong>${fmt(c.iraAmt)}</strong></div>
+        <div class="line small"><span>…Conventional IRA portion</span><strong>${fmt(c.iraConvAmt)}</strong></div>
+        <div class="line small"><span>…SDIRA portion</span><strong>${fmt(c.iraSdiAmt)}</strong></div>
+        <div class="line"><span>Overflow (taxable)</span><strong>${fmt(c.overflow)}</strong></div>
+        <div class="line small"><span>…Taxable Flex fund</span><strong>${fmt(c.flexAmt)}</strong></div>
+        <div class="line small"><span>…Liquidity buffer</span><strong>${fmt(c.liqAmt)}</strong></div>
+        <div class="line"><span class="${c.iraAmt < c.iraLimit ? 'warn' : 'ok'}">${c.iraAmt < c.iraLimit ? 'Below' : 'At'} IRA limit</span><strong>${fmt(c.iraLimit)}</strong></div>
+      `;
+
+      draw();
+    }
+
+    // Donut chart without external deps
+    const chart = document.getElementById('chart');
+    const ctx = chart.getContext('2d');
+
+    function draw(){
+      const {
+        rollConvAmt, rollSdiAmt, iraConvAmt, iraSdiAmt, flexAmt, liqAmt
+      } = calc();
+
+      const data = [
+        {label:'Conv IRA (rollover)', value: rollConvAmt, color:'#6aa0ff'},
+        {label:'SDIRA (rollover)',    value: rollSdiAmt,  color:'#8cffc2'},
+        {label:'Conv IRA (new)',      value: iraConvAmt,  color:'#3f79ff'},
+        {label:'SDIRA (new)',         value: iraSdiAmt,   color:'#47d89b'},
+        {label:'Taxable Flex',        value: flexAmt,     color:'#ffbf6a'},
+        {label:'Liquidity',           value: liqAmt,      color:'#9aa6ff'}
+      ].filter(s=>s.value>0.5);
+
+      const total = data.reduce((a,b)=>a+b.value,0);
+      const cx = chart.width/2, cy=chart.height/2, R=220, r=120;
+
+      // Clear
+      ctx.clearRect(0,0,chart.width,chart.height);
+
+      // Draw shadow base
+      ctx.beginPath();
+      ctx.arc(cx,cy,R+8,0,Math.PI*2);
+      ctx.fillStyle='rgba(0,0,0,0.25)';
+      ctx.fill();
+
+      // Donut
+      let start = -Math.PI/2;
+      data.forEach(seg=>{
+        const angle = (seg.value/total)*Math.PI*2;
+        ctx.beginPath();
+        ctx.moveTo(cx,cy);
+        ctx.arc(cx,cy,R,start,start+angle);
+        ctx.lineTo(cx,cy);
+        ctx.fillStyle = seg.color;
+        ctx.fill();
+        start += angle;
+      });
+
+      // Cut-out
+      ctx.globalCompositeOperation='destination-out';
+      ctx.beginPath();
+      ctx.arc(cx,cy,r,0,Math.PI*2);
+      ctx.fill();
+      ctx.globalCompositeOperation='source-over';
+
+      // Center label
+      ctx.fillStyle='#cfe1ff';
+      ctx.font='600 18px system-ui';
+      ctx.textAlign='center';
+      ctx.fillText('Planned Allocation (12 mo + rollover)', cx, cy-6);
+      ctx.font='700 22px system-ui';
+      const sumText = fmt(total);
+      ctx.fillText(sumText, cx, cy+22);
+
+      // Legend
+      const legend = document.getElementById('legend');
+      legend.innerHTML = data.map(d=>`<span class="lg"><span class="dot" style="background:${d.color}"></span>${d.label}: <strong>${fmt(d.value)}</strong></span>`).join('');
+    }
+
+    // Initialize
+    syncRollover();
+    syncNew();
+    update();
+  </script>
+</body>
+</html>
