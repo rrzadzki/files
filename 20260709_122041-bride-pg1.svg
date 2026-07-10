@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="12.0in" height="12.0in" viewBox="0 0 864.0 864.0">
+  <rect width="864.0" height="864.0" fill="white"/>
+  <circle cx="63.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="63.0" y="60.8" text-anchor="middle" font-family="Helvetica" font-size="8.0" fill="#000000">
+    <tspan x="63.0">Rachel</tspan>
+    <tspan x="63.0" dy="10.0">Cooper</tspan>
+  </text>
+</svg>
