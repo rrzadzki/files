@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="12.0in" height="12.0in" viewBox="0 0 864.0 864.0">
+  <rect width="864.0" height="864.0" fill="white"/>
+  <circle cx="63.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="63.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="63.0">Chuck</tspan>
+    <tspan x="63.0" dy="12.5">Auerbach</tspan>
+  </text>
+  <circle cx="123.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="123.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="123.0">Robin</tspan>
+    <tspan x="123.0" dy="12.5">Auerbach</tspan>
+  </text>
+  <circle cx="183.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="183.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="183.0">Michael</tspan>
+    <tspan x="183.0" dy="12.5">Brustein</tspan>
+  </text>
+  <circle cx="243.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="243.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="243.0">Joan</tspan>
+    <tspan x="243.0" dy="12.5">Goldfrank</tspan>
+  </text>
+  <circle cx="303.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="303.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="303.0">Vickie</tspan>
+    <tspan x="303.0" dy="12.5">Kidner</tspan>
+  </text>
+  <circle cx="363.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="363.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="363.0">Graham</tspan>
+    <tspan x="363.0" dy="12.5">Kidner</tspan>
+  </text>
+  <circle cx="423.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="423.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="423.0">Helen</tspan>
+    <tspan x="423.0" dy="12.5">Mavroidis</tspan>
+  </text>
+  <circle cx="483.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="483.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="483.0">Jerry</tspan>
+    <tspan x="483.0" dy="12.5">Mavroidis</tspan>
+  </text>
+  <circle cx="543.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="543.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="543.0">Ellyn</tspan>
+    <tspan x="543.0" dy="12.5">Roth</tspan>
+  </text>
+  <circle cx="603.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="603.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="603.0">Harold</tspan>
+    <tspan x="603.0" dy="12.5">Pincus</tspan>
+  </text>
+  <circle cx="663.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="663.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="663.0">Ellen</tspan>
+    <tspan x="663.0" dy="12.5">Sher</tspan>
+  </text>
+  <circle cx="723.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="723.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="723.0">David</tspan>
+    <tspan x="723.0" dy="12.5">Sher</tspan>
+  </text>
+  <circle cx="783.0" cy="63.0" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="783.0" y="60.25" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="783.0">Ireen</tspan>
+    <tspan x="783.0" dy="12.5">Voeller</tspan>
+  </text>
+  <circle cx="93.0" cy="114.96" r="27.0" fill="white" stroke="#ff0000" stroke-width="1"/>
+  <text x="93.0" y="112.21" text-anchor="middle" font-family="Helvetica" font-size="10.0" fill="#000000">
+    <tspan x="93.0">Tom</tspan>
+    <tspan x="93.0" dy="12.5">Voeller</tspan>
+  </text>
+</svg>
